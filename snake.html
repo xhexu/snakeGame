@@ -14,9 +14,11 @@
 		canvas.width = 400;
 		canvas.height = 300;
 		ctx.strokeStyle = "#c9c9c9";
-		drawGrid(15,15);
-		drawRect();
-		drawSnake(ctx);
+		// drawGrid(15,15);
+		// drawRect();
+		var snakeList = [{x:30,y:30},{x:45,y:30}];
+		//drawSnake(ctx);
+		move();
 		function drawGrid(stepX,stepY){
 			for(var i = stepY+0.5; i<ctx.canvas.height;i+=stepY){
 				ctx.beginPath();
@@ -38,14 +40,29 @@
 			ctx.strokeRect(0,0,ctx.canvas.width,ctx.canvas.height);
 		}
 
-		function drawSnake(ctx){
-			var snake = [{x:30,y:30},{x:45,y:30}];
-			ctx.fillStyle="#000";
-			snake.forEach(function(v){
-				ctx.strokeStyle="#4d89dc";
-				ctx.strokeRect(v.x,v.y,14,14);
+		
+		function drawSnake(){
+			ctx.fillStyle="#e0e0e0";
+			ctx.strokeStyle="#4d89dc";
+			snakeList.forEach(function(v){
 				ctx.fillRect(v.x,v.y,15,15);
+				ctx.strokeRect(v.x,v.y,15,15);
 			})
+		}
+
+		function cleanCanvas(){
+			drawGrid(15,15);
+			drawRect();
+		}
+
+		function move(){
+			setInterval(function(){
+				var head = snakeList[0];
+				snakeList.unshift({x:head.x+15,y:head.y});
+				snakeList.pop();
+				cleanCanvas();
+				drawSnake();
+			},200)
 		}
 	</script>
 </html>
