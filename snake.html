@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>snake test</title>
+	</head>
+
+	<body>
+		<canvas id="snake"></canvas>
+	</body>
+
+	<script type="text/javascript">
+		var canvas = document.getElementById("snake");
+		var ctx = canvas.getContext('2d');
+		canvas.width = 400;
+		canvas.height = 300;
+		ctx.strokeStyle = "#c9c9c9";
+		drawGrid(15,15);
+		drawRect();
+		drawSnake(ctx);
+		function drawGrid(stepX,stepY){
+			for(var i = stepY+0.5; i<ctx.canvas.height;i+=stepY){
+				ctx.beginPath();
+            	ctx.moveTo(0, i);
+            	ctx.lineTo(ctx.canvas.width, i);
+				ctx.stroke();
+			}
+
+			for(var i = stepX+0.5; i<ctx.canvas.width;i+=stepX){
+				ctx.beginPath();
+            	ctx.moveTo(i, 0);
+            	ctx.lineTo(i, ctx.canvas.height);
+				ctx.stroke();
+			}
+		}
+
+		function drawRect(){
+			ctx.strokeStyle="#c9c9c9";
+			ctx.strokeRect(0,0,ctx.canvas.width,ctx.canvas.height);
+		}
+
+		function drawSnake(ctx){
+			var snake = [{x:30,y:30},{x:45,y:30}];
+			ctx.fillStyle="#000";
+			snake.forEach(function(v){
+				ctx.strokeStyle="#4d89dc";
+				ctx.strokeRect(v.x,v.y,14,14);
+				ctx.fillRect(v.x,v.y,15,15);
+			})
+		}
+	</script>
+</html>
